@@ -1,0 +1,17 @@
+﻿[
+    {
+        "email":  "john@acme.com",
+        "contact":  "John Doe",
+        "customer_name":  "Acme Corporation"
+    },
+    {
+        "email":  "jane@techstart.com",
+        "contact":  "Jane Smith",
+        "customer_name":  "TechStart Inc"
+    },
+    {
+        "email":  "ali@globalsolutions.com",
+        "contact":  "Ali Hassan",
+        "customer_name":  "Global Solutions Ltd"
+    }
+]

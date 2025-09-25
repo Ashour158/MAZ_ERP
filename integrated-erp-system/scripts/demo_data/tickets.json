@@ -1,0 +1,20 @@
+﻿[
+    {
+        "issue":  "Laptop not booting",
+        "ticket_id":  "MT-1001",
+        "customer":  "Acme Corporation",
+        "status":  "Open"
+    },
+    {
+        "issue":  "Mouse not working",
+        "ticket_id":  "MT-1002",
+        "customer":  "TechStart Inc",
+        "status":  "Closed"
+    },
+    {
+        "issue":  "Keyboard keys stuck",
+        "ticket_id":  "MT-1003",
+        "customer":  "Global Solutions Ltd",
+        "status":  "In Progress"
+    }
+]

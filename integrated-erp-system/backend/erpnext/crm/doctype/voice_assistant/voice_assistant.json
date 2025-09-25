@@ -1,0 +1,227 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:voice_assistant_id",
+ "creation": "2024-01-01 00:00:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information",
+  "voice_assistant_id",
+  "voice_assistant_name",
+  "voice_language",
+  "voice_category",
+  "voice_status",
+  "voice_priority",
+  "voice_capabilities",
+  "voice_configuration",
+  "voice_metrics",
+  "voice_accuracy",
+  "voice_performance",
+  "voice_recognition_rate",
+  "voice_response_time",
+  "voice_insights",
+  "preferences",
+  "tags",
+  "external_voice_system_id",
+  "is_voice_enabled",
+  "created_by",
+  "creation_date",
+  "last_modified",
+  "modified_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_information",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "voice_assistant_id",
+   "fieldtype": "Data",
+   "label": "Voice Assistant ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "voice_assistant_name",
+   "fieldtype": "Data",
+   "label": "Voice Assistant Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_language",
+   "fieldtype": "Select",
+   "label": "Voice Language",
+   "options": "English\nSpanish\nFrench\nGerman\nItalian\nPortuguese\nChinese\nJapanese\nKorean\nArabic\nHindi\nRussian",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_category",
+   "fieldtype": "Select",
+   "label": "Voice Category",
+   "options": "Customer Service\nSales\nMarketing\nAnalytics\nAutomation\nIntegration\nSecurity\nPerformance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_status",
+   "fieldtype": "Select",
+   "label": "Voice Status",
+   "options": "Active\nInactive\nTraining\nTesting\nDeployed\nMaintenance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_priority",
+   "fieldtype": "Select",
+   "label": "Voice Priority",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_capabilities",
+   "fieldtype": "Text",
+   "label": "Voice Capabilities",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_configuration",
+   "fieldtype": "JSON",
+   "label": "Voice Configuration",
+   "reqd": 1
+  },
+  {
+   "fieldname": "voice_metrics",
+   "fieldtype": "Section Break",
+   "label": "Voice Metrics"
+  },
+  {
+   "fieldname": "voice_accuracy",
+   "fieldtype": "Percent",
+   "label": "Voice Accuracy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voice_performance",
+   "fieldtype": "Percent",
+   "label": "Voice Performance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voice_recognition_rate",
+   "fieldtype": "Percent",
+   "label": "Voice Recognition Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voice_response_time",
+   "fieldtype": "Float",
+   "label": "Voice Response Time (seconds)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "voice_insights",
+   "fieldtype": "JSON",
+   "label": "Voice Insights",
+   "read_only": 1
+  },
+  {
+   "fieldname": "preferences",
+   "fieldtype": "JSON",
+   "label": "Preferences"
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "JSON",
+   "label": "Tags"
+  },
+  {
+   "fieldname": "external_voice_system_id",
+   "fieldtype": "Data",
+   "label": "External Voice System ID"
+  },
+  {
+   "fieldname": "is_voice_enabled",
+   "fieldtype": "Check",
+   "label": "Is Voice Enabled",
+   "default": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "creation_date",
+   "fieldtype": "Datetime",
+   "label": "Creation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_modified",
+   "fieldtype": "Datetime",
+   "label": "Last Modified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "modified_by",
+   "fieldtype": "Link",
+   "label": "Modified By",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CRM",
+ "name": "Voice Assistant",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "report": 1,
+   "role": "CRM Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "CRM User",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

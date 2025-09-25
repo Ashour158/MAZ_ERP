@@ -1,0 +1,133 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: erpnext
+      POSTGRES_USER: erpnext
+      POSTGRES_PASSWORD: erpnext123
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - erp_network
+
+  # Redis Cache
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - erp_network
+
+  # ERPNext Backend
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://erpnext:erpnext123@db:5432/erpnext
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your-secret-key-here
+      - FRAPPE_SITE=erpnext.local
+      - FRAPPE_SITES_PATH=/home/frappe/frappe-bench/sites
+    volumes:
+      - backend_data:/home/frappe/frappe-bench
+      - ../backend:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - erp_network
+    command: >
+      sh -c "
+        bench --site erpnext.local migrate &&
+        bench --site erpnext.local serve --host 0.0.0.0 --port 8000
+      "
+
+  # React Frontend
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_WS_URL=ws://localhost:8000
+      - REACT_APP_ENV=development
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - erp_network
+    command: npm run dev
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - erp_network
+
+  # Celery Worker for Background Tasks
+  celery:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://erpnext:erpnext123@db:5432/erpnext
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ../backend:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - erp_network
+    command: celery -A erpnext worker --loglevel=info
+
+  # Celery Beat for Scheduled Tasks
+  celery-beat:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://erpnext:erpnext123@db:5432/erpnext
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ../backend:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - erp_network
+    command: celery -A erpnext beat --loglevel=info
+
+volumes:
+  postgres_data:
+  redis_data:
+  backend_data:
+
+networks:
+  erp_network:
+    driver: bridge

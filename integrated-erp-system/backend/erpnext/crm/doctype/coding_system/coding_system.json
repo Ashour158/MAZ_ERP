@@ -1,0 +1,236 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:coding_system_id",
+ "creation": "2024-01-01 00:00:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information",
+  "coding_system_id",
+  "coding_system_name",
+  "coding_type",
+  "coding_category",
+  "coding_status",
+  "coding_priority",
+  "target_doctype",
+  "filter_conditions",
+  "coding_rules",
+  "coding_metrics",
+  "coding_efficiency",
+  "coding_accuracy",
+  "coding_performance",
+  "coding_coverage",
+  "coding_insights",
+  "preferences",
+  "tags",
+  "external_system_id",
+  "is_auto_generation_enabled",
+  "created_by",
+  "creation_date",
+  "last_modified",
+  "modified_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_information",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "coding_system_id",
+   "fieldtype": "Data",
+   "label": "Coding System ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "coding_system_name",
+   "fieldtype": "Data",
+   "label": "Coding System Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "coding_type",
+   "fieldtype": "Select",
+   "label": "Coding Type",
+   "options": "Contact\nAccount\nCustomer\nLead\nOpportunity\nCampaign\nActivity\nCustom",
+   "reqd": 1
+  },
+  {
+   "fieldname": "coding_category",
+   "fieldtype": "Select",
+   "label": "Coding Category",
+   "options": "Territory Based\nSequential\nCustom\nAuto Generated\nManual",
+   "reqd": 1
+  },
+  {
+   "fieldname": "coding_status",
+   "fieldtype": "Select",
+   "label": "Coding Status",
+   "options": "Active\nInactive\nTesting\nDraft\nMaintenance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "coding_priority",
+   "fieldtype": "Select",
+   "label": "Coding Priority",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_doctype",
+   "fieldtype": "Link",
+   "label": "Target DocType",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "filter_conditions",
+   "fieldtype": "Text",
+   "label": "Filter Conditions",
+   "description": "SQL WHERE conditions to filter records for coding"
+  },
+  {
+   "fieldname": "coding_rules",
+   "fieldtype": "JSON",
+   "label": "Coding Rules",
+   "reqd": 1,
+   "description": "JSON configuration for coding rules including territory mapping, format, and auto-generation settings"
+  },
+  {
+   "fieldname": "coding_metrics",
+   "fieldtype": "Section Break",
+   "label": "Coding Metrics"
+  },
+  {
+   "fieldname": "coding_efficiency",
+   "fieldtype": "Percent",
+   "label": "Coding Efficiency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coding_accuracy",
+   "fieldtype": "Percent",
+   "label": "Coding Accuracy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coding_performance",
+   "fieldtype": "Percent",
+   "label": "Coding Performance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coding_coverage",
+   "fieldtype": "Percent",
+   "label": "Coding Coverage",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coding_insights",
+   "fieldtype": "JSON",
+   "label": "Coding Insights",
+   "read_only": 1
+  },
+  {
+   "fieldname": "preferences",
+   "fieldtype": "JSON",
+   "label": "Preferences"
+  },
+  {
+   "fieldname": "tags",
+   "fieldtype": "JSON",
+   "label": "Tags"
+  },
+  {
+   "fieldname": "external_system_id",
+   "fieldtype": "Data",
+   "label": "External System ID"
+  },
+  {
+   "fieldname": "is_auto_generation_enabled",
+   "fieldtype": "Check",
+   "label": "Is Auto Generation Enabled",
+   "default": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "creation_date",
+   "fieldtype": "Datetime",
+   "label": "Creation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_modified",
+   "fieldtype": "Datetime",
+   "label": "Last Modified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "modified_by",
+   "fieldtype": "Link",
+   "label": "Modified By",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CRM",
+ "name": "Coding System",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "report": 1,
+   "role": "CRM Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "CRM User",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

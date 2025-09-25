@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated ERP System - Live Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .demo-nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+
+        .module-demo {
+            display: none;
+        }
+
+        .module-demo.active {
+            display: block;
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .demo-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+        }
+
+        .demo-title {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .demo-description {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .demo-data {
+            background: #e8f5e8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .demo-data h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+
+        .data-item {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .data-item-header {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .data-item-content {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-open {
+            background: #ffeb3b;
+            color: #f57f17;
+        }
+
+        .status-in-progress {
+            background: #2196f3;
+            color: white;
+        }
+
+        .status-critical {
+            background: #f44336;
+            color: white;
+        }
+
+        .status-high {
+            background: #ff9800;
+            color: white;
+        }
+
+        .status-medium {
+            background: #4caf50;
+            color: white;
+        }
+
+        .interactive-demo {
+            background: #f0f2ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #667eea;
+        }
+
+        .interactive-demo h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .demo-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-result {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            display: none;
+        }
+
+        .demo-result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chart-bar {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #f44336;
+        }
+
+        .notification.warning {
+            background: #ff9800;
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .demo-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 Integrated ERP System - Live Demo</h1>
+        <p>Experience the future of ERP with AI-powered features - No setup required!</p>
+    </div>
+
+    <div class="container">
+        <div class="demo-nav">
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showModule('dashboard')">📊 Dashboard</button>
+                <button class="nav-btn" onclick="showModule('maintenance')">🔧 Maintenance</button>
+                <button class="nav-btn" onclick="showModule('supply-chain')">📦 Supply Chain</button>
+                <button class="nav-btn" onclick="showModule('crm')">👥 CRM</button>
+                <button class="nav-btn" onclick="showModule('analytics')">🤖 AI Analytics</button>
+                <button class="nav-btn" onclick="showModule('realtime')">⚡ Real-time</button>
+            </div>
+        </div>
+
+        <div class="demo-content">
+            <!-- Dashboard Module -->
+            <div id="dashboard" class="module-demo active">
+                <div class="demo-header">
+                    <span class="demo-icon">📊</span>
+                    <div>
+                        <h2 class="demo-title">Executive Dashboard</h2>
+                        <p class="demo-description">Real-time business metrics and AI-powered insights</p>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">24</div>
+                        <div class="metric-label">Open Tickets</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$2.4M</div>
+                        <div class="metric-label">Inventory Value</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">94%</div>
+                        <div class="metric-label">SLA Compliance</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4.7/5</div>
+                        <div class="metric-label">Customer Satisfaction</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Performance Trends</h3>
+                    <div class="chart-bar" style="width: 85%;">Response Time: 2.3h</div>
+                    <div class="chart-bar" style="width: 92%;">Resolution Rate: 94%</div>
+                    <div class="chart-bar" style="width: 78%;">Customer Satisfaction: 4.7/5</div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: Real-time Updates</h3>
+                    <p>Click the button below to simulate real-time data updates:</p>
+                    <button class="demo-button" onclick="simulateUpdate()">🔄 Refresh Data</button>
+                    <div id="update-result" class="demo-result">
+                        <strong>✅ Data Updated!</strong> New metrics: 26 tickets, $2.5M inventory, 96% SLA compliance
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Module -->
+            <div id="maintenance" class="module-demo">
+                <div class="demo-header">
+                    <span class="demo-icon">🔧</span>
+                    <div>
+                        <h2 class="demo-title">Enhanced Maintenance Module</h2>
+                        <p class="demo-description">AI-powered ticket management with intelligent routing</p>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="feature-card">
+                        <div class="feature-title">🤖 AI Sentiment Analysis</div>
+                        <div class="feature-description">Automatically analyzes customer feedback and ticket content to determine priority and routing.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">⚡ Real-time SLA Management</div>
+                        <div class="feature-description">Automated escalation and SLA tracking with real-time status updates.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📊 Performance Analytics</div>
+                        <div class="feature-description">Comprehensive analytics on response times, resolution rates, and customer satisfaction.</div>
+                    </div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>📋 Sample Maintenance Tickets</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">TKT-2024-001 - Server Performance Issue <span class="status-badge status-critical">Critical</span></div>
+                        <div class="data-item-content">AI Sentiment Score: 0.2 (Negative) | SLA Status: At Risk | Assigned to: John Smith</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">TKT-2024-002 - Software License Renewal <span class="status-badge status-in-progress">In Progress</span></div>
+                        <div class="data-item-content">AI Sentiment Score: 0.7 (Positive) | SLA Status: On Track | Assigned to: Sarah Johnson</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">TKT-2024-003 - Network Connectivity <span class="status-badge status-high">High</span></div>
+                        <div class="data-item-content">AI Sentiment Score: 0.1 (Very Negative) | SLA Status: Breached | Escalated to Manager</div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: Create New Ticket</h3>
+                    <p>Simulate creating a new maintenance ticket with AI analysis:</p>
+                    <button class="demo-button" onclick="createTicket()">📝 Create Ticket</button>
+                    <button class="demo-button" onclick="analyzeSentiment()">🤖 Analyze Sentiment</button>
+                    <button class="demo-button" onclick="checkSLA()">⏰ Check SLA</button>
+                    <div id="ticket-result" class="demo-result">
+                        <strong>✅ Ticket Created!</strong> TKT-2024-004 - AI analyzed sentiment: 0.3 (Negative), Priority escalated to High, SLA: 4 hours
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supply Chain Module -->
+            <div id="supply-chain" class="module-demo">
+                <div class="demo-header">
+                    <span class="demo-icon">📦</span>
+                    <div>
+                        <h2 class="demo-title">Intelligent Supply Chain</h2>
+                        <p class="demo-description">ML-powered inventory management and automated recommendations</p>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="feature-card">
+                        <div class="feature-title">🧠 ML Demand Forecasting</div>
+                        <div class="feature-description">Predicts future demand using historical data and market trends.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🛒 Smart Reorder Recommendations</div>
+                        <div class="feature-description">AI-generated suggestions for optimal reorder quantities and timing.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📈 Vendor Performance Tracking</div>
+                        <div class="feature-description">Comprehensive analytics on supplier performance and reliability.</div>
+                    </div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>📦 Inventory Status</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">LAPTOP-001 - Business Laptop</div>
+                        <div class="data-item-content">Stock: 5 units | Reserved: 2 | Projected: 3 | Reorder Level: 10 | Status: ⚠️ Low Stock</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">MOUSE-001 - Wireless Mouse</div>
+                        <div class="data-item-content">Stock: 15 units | Reserved: 5 | Projected: 10 | Reorder Level: 20 | Status: ⚠️ Low Stock</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">KEYBOARD-001 - Mechanical Keyboard</div>
+                        <div class="data-item-content">Stock: 8 units | Reserved: 3 | Projected: 5 | Reorder Level: 15 | Status: ⚠️ Low Stock</div>
+                    </div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>🤖 AI Reorder Recommendations</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">REC-001 - LAPTOP-001 Reorder</div>
+                        <div class="data-item-content">Recommended Qty: 50 | Confidence: 85% | Urgency: High | Cost: $60,000 | AI Insight: High demand predicted</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">REC-002 - MOUSE-001 Reorder</div>
+                        <div class="data-item-content">Recommended Qty: 100 | Confidence: 92% | Urgency: Medium | Cost: $2,500 | AI Insight: Seasonal demand increase</div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: AI Recommendations</h3>
+                    <p>Generate new AI-powered reorder recommendations:</p>
+                    <button class="demo-button" onclick="generateRecommendations()">🧠 Generate AI Recommendations</button>
+                    <button class="demo-button" onclick="approveRecommendation()">✅ Approve Recommendation</button>
+                    <button class="demo-button" onclick="createPurchaseOrder()">📋 Create Purchase Order</button>
+                    <div id="supply-result" class="demo-result">
+                        <strong>✅ AI Recommendation Generated!</strong> New recommendation for KEYBOARD-001: 75 units, 88% confidence, $11,250 cost
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRM Module -->
+            <div id="crm" class="module-demo">
+                <div class="demo-header">
+                    <span class="demo-icon">👥</span>
+                    <div>
+                        <h2 class="demo-title">Enhanced CRM Module</h2>
+                        <p class="demo-description">AI-powered customer insights and predictive analytics</p>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="feature-card">
+                        <div class="feature-title">👤 Customer 360° View</div>
+                        <div class="feature-description">Complete customer profiles with interaction history and preferences.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔮 Predictive Analytics</div>
+                        <div class="feature-description">AI-powered churn prediction and upsell opportunity identification.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📊 Customer Success Tracking</div>
+                        <div class="feature-description">Monitor customer health and success metrics in real-time.</div>
+                    </div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>👥 Customer Analytics</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">Acme Corporation</div>
+                        <div class="data-item-content">Health Score: 85% | Churn Risk: Low | Upsell Opportunity: Premium Support | Last Activity: 2 days ago</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">TechStart Inc</div>
+                        <div class="data-item-content">Health Score: 92% | Churn Risk: Very Low | Upsell Opportunity: Additional Modules | Last Activity: 1 day ago</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">Global Solutions Ltd</div>
+                        <div class="data-item-content">Health Score: 45% | Churn Risk: High | Upsell Opportunity: None | Last Activity: 15 days ago</div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: Customer Insights</h3>
+                    <p>Generate AI-powered customer insights and recommendations:</p>
+                    <button class="demo-button" onclick="analyzeCustomer()">🔍 Analyze Customer</button>
+                    <button class="demo-button" onclick="predictChurn()">🔮 Predict Churn Risk</button>
+                    <button class="demo-button" onclick="findUpsell()">💰 Find Upsell Opportunities</button>
+                    <div id="crm-result" class="demo-result">
+                        <strong>✅ Customer Analysis Complete!</strong> Global Solutions Ltd: High churn risk detected, immediate intervention recommended, potential revenue recovery: $50,000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Module -->
+            <div id="analytics" class="module-demo">
+                <div class="demo-header">
+                    <span class="demo-icon">🤖</span>
+                    <div>
+                        <h2 class="demo-title">AI Analytics Dashboard</h2>
+                        <p class="demo-description">Comprehensive AI-powered business intelligence and insights</p>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="feature-card">
+                        <div class="feature-title">🔮 Predictive Maintenance</div>
+                        <div class="feature-description">AI algorithms predict equipment failures before they occur.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📈 Demand Forecasting</div>
+                        <div class="feature-description">Machine learning models predict future demand patterns and trends.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🚨 Anomaly Detection</div>
+                        <div class="feature-description">Automatically identify unusual patterns and potential issues.</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>📊 AI Insights Dashboard</h3>
+                    <div class="chart-bar" style="width: 75%;">Predictive Maintenance Accuracy: 87%</div>
+                    <div class="chart-bar" style="width: 82%;">Demand Forecast Accuracy: 91%</div>
+                    <div class="chart-bar" style="width: 68%;">Anomaly Detection Rate: 94%</div>
+                    <div class="chart-bar" style="width: 90%;">Cost Savings from AI: $125,000</div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>🚨 AI Alerts & Recommendations</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">🔮 Predictive Maintenance Alert</div>
+                        <div class="data-item-content">Server-001: 85% probability of failure in next 7 days. Recommended action: Schedule maintenance immediately.</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">📈 Demand Forecast Update</div>
+                        <div class="data-item-content">LAPTOP-001: Expected demand increase of 40% in Q2. Recommendation: Increase inventory by 200 units.</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">🚨 Anomaly Detected</div>
+                        <div class="data-item-content">Unusual spending pattern detected for Customer-003. Potential fraud risk: 15%. Investigation recommended.</div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: AI Analytics</h3>
+                    <p>Generate new AI insights and recommendations:</p>
+                    <button class="demo-button" onclick="generateInsights()">🧠 Generate AI Insights</button>
+                    <button class="demo-button" onclick="runForecast()">📈 Run Demand Forecast</button>
+                    <button class="demo-button" onclick="detectAnomalies()">🚨 Detect Anomalies</button>
+                    <div id="analytics-result" class="demo-result">
+                        <strong>✅ AI Analysis Complete!</strong> New insights: 3 maintenance alerts, 5 demand forecasts updated, 2 anomalies detected. Total potential savings: $45,000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Module -->
+            <div id="realtime" class="module-demo">
+                <div class="demo-header">
+                    <span class="demo-icon">⚡</span>
+                    <div>
+                        <h2 class="demo-title">Real-time Features</h2>
+                        <p class="demo-description">Live collaboration and instant updates across all modules</p>
+                    </div>
+                </div>
+
+                <div class="demo-features">
+                    <div class="feature-card">
+                        <div class="feature-title">🔄 Live Data Updates</div>
+                        <div class="feature-description">Real-time synchronization of data across all users and devices.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔔 Smart Notifications</div>
+                        <div class="feature-description">Intelligent notifications based on user preferences and context.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">👥 Live Collaboration</div>
+                        <div class="feature-description">Real-time collaboration tools for teams and departments.</div>
+                    </div>
+                </div>
+
+                <div class="demo-data">
+                    <h3>⚡ Live Activity Feed</h3>
+                    <div class="data-item">
+                        <div class="data-item-header">🔄 Real-time Update</div>
+                        <div class="data-item-content">John Smith updated TKT-2024-001 status to "In Progress" - 2 minutes ago</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">🔔 Notification</div>
+                        <div class="data-item-content">New reorder recommendation generated for LAPTOP-001 - 5 minutes ago</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">👥 Collaboration</div>
+                        <div class="data-item-content">Sarah Johnson is viewing Customer-001 profile - Live</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-item-header">🤖 AI Update</div>
+                        <div class="data-item-content">AI sentiment analysis completed for 3 new tickets - 1 minute ago</div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Try It: Real-time Simulation</h3>
+                    <p>Simulate real-time updates and notifications:</p>
+                    <button class="demo-button" onclick="simulateRealtime()">⚡ Simulate Live Updates</button>
+                    <button class="demo-button" onclick="sendNotification()">🔔 Send Notification</button>
+                    <button class="demo-button" onclick="startCollaboration()">👥 Start Collaboration</button>
+                    <div id="realtime-result" class="demo-result">
+                        <strong>✅ Real-time Updates Active!</strong> 5 users online, 3 live updates, 2 notifications sent, 1 collaboration session started
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Module navigation
+        function showModule(moduleId) {
+            // Hide all modules
+            document.querySelectorAll('.module-demo').forEach(module => {
+                module.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected module
+            document.getElementById(moduleId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Dashboard functions
+        function simulateUpdate() {
+            const result = document.getElementById('update-result');
+            result.classList.add('show');
+            showNotification('📊 Dashboard data refreshed successfully!', 'success');
+        }
+
+        // Maintenance functions
+        function createTicket() {
+            const result = document.getElementById('ticket-result');
+            result.classList.add('show');
+            showNotification('🔧 New maintenance ticket created with AI analysis!', 'success');
+        }
+
+        function analyzeSentiment() {
+            showNotification('🤖 AI sentiment analysis completed: Negative sentiment detected, priority escalated!', 'warning');
+        }
+
+        function checkSLA() {
+            showNotification('⏰ SLA check completed: 2 tickets at risk, 1 breached!', 'warning');
+        }
+
+        // Supply Chain functions
+        function generateRecommendations() {
+            const result = document.getElementById('supply-result');
+            result.classList.add('show');
+            showNotification('🧠 AI recommendations generated with 88% confidence!', 'success');
+        }
+
+        function approveRecommendation() {
+            showNotification('✅ Recommendation approved! Purchase order generated automatically.', 'success');
+        }
+
+        function createPurchaseOrder() {
+            showNotification('📋 Purchase order created and sent to vendor!', 'success');
+        }
+
+        // CRM functions
+        function analyzeCustomer() {
+            const result = document.getElementById('crm-result');
+            result.classList.add('show');
+            showNotification('🔍 Customer analysis completed with AI insights!', 'success');
+        }
+
+        function predictChurn() {
+            showNotification('🔮 Churn prediction: 3 customers at high risk, immediate action recommended!', 'warning');
+        }
+
+        function findUpsell() {
+            showNotification('💰 Upsell opportunities found: 5 customers eligible for premium services!', 'success');
+        }
+
+        // Analytics functions
+        function generateInsights() {
+            const result = document.getElementById('analytics-result');
+            result.classList.add('show');
+            showNotification('🧠 AI insights generated: 8 new recommendations, $45,000 potential savings!', 'success');
+        }
+
+        function runForecast() {
+            showNotification('📈 Demand forecast updated: Q2 demand increase of 25% predicted!', 'success');
+        }
+
+        function detectAnomalies() {
+            showNotification('🚨 Anomaly detection: 2 unusual patterns identified, investigation recommended!', 'warning');
+        }
+
+        // Real-time functions
+        function simulateRealtime() {
+            const result = document.getElementById('realtime-result');
+            result.classList.add('show');
+            showNotification('⚡ Real-time updates activated! Live collaboration started.', 'success');
+        }
+
+        function sendNotification() {
+            showNotification('🔔 Notification sent to 3 users: New critical ticket requires attention!', 'success');
+        }
+
+        function startCollaboration() {
+            showNotification('👥 Collaboration session started: 2 users joined, live editing enabled!', 'success');
+        }
+
+        // Auto-refresh simulation
+        setInterval(() => {
+            // Simulate random updates
+            const updates = [
+                '🔄 New ticket created',
+                '📦 Inventory updated',
+                '👥 Customer profile modified',
+                '🤖 AI analysis completed',
+                '⚡ Real-time sync active'
+            ];
+            
+            const randomUpdate = updates[Math.floor(Math.random() * updates.length)];
+            console.log(`Live update: ${randomUpdate}`);
+        }, 10000);
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('🎬 Welcome to the Integrated ERP System Demo!', 'success');
+            
+            // Simulate initial data load
+            setTimeout(() => {
+                showNotification('📊 Dashboard loaded with real-time data!', 'success');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

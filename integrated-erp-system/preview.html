@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated ERP System - Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .module-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .demo-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .demo-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .demo-steps {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-steps ol {
+            padding-left: 20px;
+        }
+
+        .demo-steps li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .credentials {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .credentials h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .credentials code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .status-offline {
+            background: #f44336;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .tech-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .tech-feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .tech-feature:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+
+        .tech-feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Integrated ERP System Preview</h1>
+            <p>Experience the future of ERP with AI-powered features and real-time collaboration</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Quick Start Guide</h2>
+            <div class="demo-steps">
+                <h3>Option 1: Docker Setup (Full Experience)</h3>
+                <ol>
+                    <li>Open PowerShell as Administrator</li>
+                    <li>Run: <code>Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process</code></li>
+                    <li>Navigate to: <code>cd integrated-erp-system</code></li>
+                    <li>Run: <code>.\scripts\quick-preview.ps1</code></li>
+                    <li>Wait 2-3 minutes for services to start</li>
+                    <li>Open: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                </ol>
+            </div>
+
+            <div class="demo-steps">
+                <h3>Option 2: Manual Docker Commands</h3>
+                <ol>
+                    <li>Open Command Prompt or PowerShell</li>
+                    <li>Navigate to: <code>cd integrated-erp-system</code></li>
+                    <li>Run: <code>docker-compose -f docker/docker-compose.yml up -d</code></li>
+                    <li>Wait for services to start</li>
+                    <li>Open: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                </ol>
+            </div>
+
+            <div class="credentials">
+                <h3>🔑 Demo Credentials</h3>
+                <p><strong>Admin:</strong> <code>admin@erpnext.com</code> / <code>admin123</code></p>
+                <p><strong>Maintenance Manager:</strong> <code>demo-maintenance@erpnext.com</code> / <code>demo123</code></p>
+                <p><strong>Supply Chain Manager:</strong> <code>demo-supply@erpnext.com</code> / <code>demo123</code></p>
+                <p><strong>CRM Manager:</strong> <code>demo-crm@erpnext.com</code> / <code>demo123</code></p>
+            </div>
+        </div>
+
+        <div class="preview-grid">
+            <div class="module-card">
+                <span class="module-icon">🔧</span>
+                <h3 class="module-title">Enhanced Maintenance Module</h3>
+                <p class="module-description">AI-powered maintenance management with intelligent ticket routing, real-time communication, and automated SLA management.</p>
+                <ul class="features-list">
+                    <li>AI-powered ticket routing and prioritization</li>
+                    <li>Real-time communication hub</li>
+                    <li>SLA management with automated escalation</li>
+                    <li>Sentiment analysis for customer feedback</li>
+                    <li>Performance analytics and insights</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('maintenance')">View Demo</button>
+            </div>
+
+            <div class="module-card">
+                <span class="module-icon">📦</span>
+                <h3 class="module-title">Intelligent Supply Chain</h3>
+                <p class="module-description">ML-based supply chain optimization with automated reorder recommendations, smart PO generation, and vendor performance tracking.</p>
+                <ul class="features-list">
+                    <li>ML-based demand forecasting</li>
+                    <li>Automated reorder recommendations</li>
+                    <li>Smart purchase order generation</li>
+                    <li>Vendor performance tracking</li>
+                    <li>Cost optimization analytics</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('supply-chain')">View Demo</button>
+            </div>
+
+            <div class="module-card">
+                <span class="module-icon">👥</span>
+                <h3 class="module-title">Enhanced CRM Module</h3>
+                <p class="module-description">Advanced customer relationship management with AI-powered insights, predictive analytics, and customer success tracking.</p>
+                <ul class="features-list">
+                    <li>Customer 360-degree view</li>
+                    <li>AI-powered customer insights</li>
+                    <li>Predictive analytics for churn and upsell</li>
+                    <li>Advanced quote management</li>
+                    <li>Customer success tracking</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('crm')">View Demo</button>
+            </div>
+
+            <div class="module-card">
+                <span class="module-icon">🤖</span>
+                <h3 class="module-title">AI Analytics Dashboard</h3>
+                <p class="module-description">Comprehensive AI-powered analytics with predictive maintenance, demand forecasting, and business intelligence insights.</p>
+                <ul class="features-list">
+                    <li>Predictive maintenance alerts</li>
+                    <li>Demand forecasting models</li>
+                    <li>Anomaly detection</li>
+                    <li>Performance optimization</li>
+                    <li>Business intelligence insights</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('analytics')">View Demo</button>
+            </div>
+
+            <div class="module-card">
+                <span class="module-icon">⚡</span>
+                <h3 class="module-title">Real-time Features</h3>
+                <p class="module-description">Live collaboration and real-time updates across all modules with WebSocket connections and optimistic UI updates.</p>
+                <ul class="features-list">
+                    <li>Live data updates via WebSocket</li>
+                    <li>Real-time notifications</li>
+                    <li>Optimistic UI updates</li>
+                    <li>Live collaboration</li>
+                    <li>Instant status changes</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('realtime')">View Demo</button>
+            </div>
+
+            <div class="module-card">
+                <span class="module-icon">🎨</span>
+                <h3 class="module-title">Modern UI/UX</h3>
+                <p class="module-description">Beautiful, responsive interface with modern design principles, mobile-first approach, and intuitive user experience.</p>
+                <ul class="features-list">
+                    <li>Responsive design for all devices</li>
+                    <li>Modern, clean interface</li>
+                    <li>Intuitive navigation</li>
+                    <li>Fast loading and smooth interactions</li>
+                    <li>Accessibility features</li>
+                </ul>
+                <button class="demo-button" onclick="showDemo('ui')">View Demo</button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎯 Demo Scenarios</h2>
+            <div class="demo-steps">
+                <h3>Scenario 1: Maintenance Ticket Workflow</h3>
+                <ol>
+                    <li>Go to Maintenance Module</li>
+                    <li>Create a new ticket with 'Critical' priority</li>
+                    <li>Watch AI sentiment analysis in action</li>
+                    <li>See real-time SLA status updates</li>
+                    <li>Test escalation workflow</li>
+                </ol>
+            </div>
+
+            <div class="demo-steps">
+                <h3>Scenario 2: Supply Chain Intelligence</h3>
+                <ol>
+                    <li>Go to Supply Chain Module</li>
+                    <li>Check inventory levels</li>
+                    <li>Review AI-generated reorder recommendations</li>
+                    <li>Approve recommendations and see PO generation</li>
+                    <li>Monitor vendor performance metrics</li>
+                </ol>
+            </div>
+
+            <div class="demo-steps">
+                <h3>Scenario 3: CRM Analytics</h3>
+                <ol>
+                    <li>Go to CRM Module</li>
+                    <li>View customer analytics dashboard</li>
+                    <li>Check AI-powered insights</li>
+                    <li>Review churn risk predictions</li>
+                    <li>Explore upsell opportunities</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔧 Technical Features</h2>
+            <div class="tech-features">
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">🚀</span>
+                    <h4>Performance</h4>
+                    <p>Fast loading, smooth interactions, optimized caching</p>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">📱</span>
+                    <h4>Responsive</h4>
+                    <p>Works perfectly on mobile, tablet, and desktop</p>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">🔄</span>
+                    <h4>Real-time</h4>
+                    <p>Live updates without page refresh</p>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">🔐</span>
+                    <h4>Security</h4>
+                    <p>JWT authentication, RBAC, data encryption</p>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">📊</span>
+                    <h4>Analytics</h4>
+                    <p>Comprehensive reporting and insights</p>
+                </div>
+                <div class="tech-feature">
+                    <span class="tech-feature-icon">🤖</span>
+                    <h4>AI Features</h4>
+                    <p>Intelligent automation and recommendations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🌐 Access URLs</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                    <h3>🌐 Frontend Application</h3>
+                    <p><a href="http://localhost:3000" target="_blank" style="color: #2E7D32; font-weight: bold;">http://localhost:3000</a></p>
+                    <p>Modern React interface with real-time updates</p>
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196F3;">
+                    <h3>🔧 Backend API</h3>
+                    <p><a href="http://localhost:8000" target="_blank" style="color: #1976D2; font-weight: bold;">http://localhost:8000</a></p>
+                    <p>RESTful APIs with WebSocket support</p>
+                </div>
+                <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 4px solid #FF9800;">
+                    <h3>📊 Admin Panel</h3>
+                    <p><a href="http://localhost:8000/app" target="_blank" style="color: #F57C00; font-weight: bold;">http://localhost:8000/app</a></p>
+                    <p>ERPNext admin interface</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎬 <strong>Integrated ERP System Preview</strong> - Experience the future of ERP!</p>
+            <p>Built with ❤️ using React, Python, AI/ML, and modern web technologies</p>
+        </div>
+    </div>
+
+    <script>
+        function showDemo(module) {
+            const demos = {
+                'maintenance': {
+                    title: '🔧 Enhanced Maintenance Module Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>Create a critical priority ticket</li>
+                            <li>Watch AI sentiment analysis in real-time</li>
+                            <li>See SLA status updates automatically</li>
+                            <li>Test the escalation workflow</li>
+                            <li>Explore performance analytics</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Sample tickets with different priorities and statuses</p>
+                    `
+                },
+                'supply-chain': {
+                    title: '📦 Intelligent Supply Chain Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>Check inventory levels and projections</li>
+                            <li>Review AI-generated reorder recommendations</li>
+                            <li>Approve recommendations and see PO generation</li>
+                            <li>Monitor vendor performance metrics</li>
+                            <li>Explore cost optimization analytics</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Sample items, inventory levels, and vendor data</p>
+                    `
+                },
+                'crm': {
+                    title: '👥 Enhanced CRM Module Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>View customer 360-degree profiles</li>
+                            <li>Check AI-powered customer insights</li>
+                            <li>Review churn risk predictions</li>
+                            <li>Explore upsell opportunities</li>
+                            <li>Test advanced quote management</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Sample customers with different profiles and analytics</p>
+                    `
+                },
+                'analytics': {
+                    title: '🤖 AI Analytics Dashboard Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>View predictive maintenance alerts</li>
+                            <li>Check demand forecasting models</li>
+                            <li>Review anomaly detection results</li>
+                            <li>Explore performance optimization</li>
+                            <li>Analyze business intelligence insights</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Sample analytics, forecasts, and insights</p>
+                    `
+                },
+                'realtime': {
+                    title: '⚡ Real-time Features Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>Watch live data updates without refresh</li>
+                            <li>See real-time notifications</li>
+                            <li>Experience optimistic UI updates</li>
+                            <li>Test live collaboration features</li>
+                            <li>Observe instant status changes</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Live updates across all modules</p>
+                    `
+                },
+                'ui': {
+                    title: '🎨 Modern UI/UX Demo',
+                    content: `
+                        <h4>Key Features to Test:</h4>
+                        <ul>
+                            <li>Test responsive design on different screen sizes</li>
+                            <li>Experience smooth animations and transitions</li>
+                            <li>Navigate through intuitive interface</li>
+                            <li>Test accessibility features</li>
+                            <li>Enjoy fast loading and performance</li>
+                        </ul>
+                        <p><strong>Demo Data:</strong> Optimized for all devices and screen sizes</p>
+                    `
+                }
+            };
+
+            const demo = demos[module];
+            if (demo) {
+                alert(`${demo.title}\n\n${demo.content}`);
+            }
+        }
+
+        // Check if services are running
+        function checkServices() {
+            const services = [
+                { name: 'Frontend', url: 'http://localhost:3000' },
+                { name: 'Backend API', url: 'http://localhost:8000' },
+                { name: 'Admin Panel', url: 'http://localhost:8000/app' }
+            ];
+
+            services.forEach(service => {
+                fetch(service.url, { mode: 'no-cors' })
+                    .then(() => {
+                        console.log(`${service.name} is running`);
+                    })
+                    .catch(() => {
+                        console.log(`${service.name} is not running`);
+                    });
+            });
+        }
+
+        // Check services on page load
+        window.addEventListener('load', checkServices);
+    </script>
+</body>
+</html>

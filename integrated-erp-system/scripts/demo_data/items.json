@@ -1,0 +1,17 @@
+﻿[
+    {
+        "price":  1200,
+        "item_name":  "Laptop",
+        "item_code":  "LAPTOP-001"
+    },
+    {
+        "price":  25,
+        "item_name":  "Mouse",
+        "item_code":  "MOUSE-001"
+    },
+    {
+        "price":  45,
+        "item_name":  "Keyboard",
+        "item_code":  "KEYBOARD-001"
+    }
+]

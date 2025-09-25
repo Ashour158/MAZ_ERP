@@ -1,0 +1,344 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:company_code",
+ "creation": "2024-01-15 10:30:00.000000",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company_information",
+  "company_code",
+  "company_name",
+  "company_type",
+  "industry",
+  "website",
+  "email",
+  "phone",
+  "fax",
+  "address",
+  "city",
+  "state",
+  "country",
+  "postal_code",
+  "currency_settings",
+  "currency",
+  "enabled_currencies",
+  "fiscal_year_start",
+  "fiscal_year_end",
+  "chart_of_accounts",
+  "tax_settings",
+  "tax_id",
+  "vat_number",
+  "tax_rate",
+  "bank_settings",
+  "bank_name",
+  "bank_account",
+  "bank_code",
+  "swift_code",
+  "iban",
+  "company_settings",
+  "timezone",
+  "language",
+  "date_format",
+  "time_format",
+  "number_format",
+  "currency_format",
+  "external_system_id",
+  "is_active",
+  "created_by",
+  "created_on",
+  "modified_by",
+  "modified_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "company_information",
+   "fieldtype": "Section Break",
+   "label": "Company Information"
+  },
+  {
+   "fieldname": "company_code",
+   "fieldtype": "Data",
+   "label": "Company Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_type",
+   "fieldtype": "Select",
+   "label": "Company Type",
+   "options": "Private Limited\nPublic Limited\nPartnership\nSole Proprietorship\nLLC\nCorporation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "industry",
+   "fieldtype": "Select",
+   "label": "Industry",
+   "options": "Manufacturing\nServices\nRetail\nTechnology\nHealthcare\nFinance\nEducation\nOther"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "fax",
+   "fieldtype": "Data",
+   "label": "Fax"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code"
+  },
+  {
+   "fieldname": "currency_settings",
+   "fieldtype": "Section Break",
+   "label": "Currency Settings"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Base Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "enabled_currencies",
+   "fieldtype": "Table",
+   "label": "Enabled Currencies",
+   "options": "Company Currency"
+  },
+  {
+   "fieldname": "fiscal_year_start",
+   "fieldtype": "Data",
+   "label": "Fiscal Year Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year_end",
+   "fieldtype": "Data",
+   "label": "Fiscal Year End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "chart_of_accounts",
+   "fieldtype": "Select",
+   "label": "Chart of Accounts",
+   "options": "Standard\nUS GAAP\nIFRS\nCustom"
+  },
+  {
+   "fieldname": "tax_settings",
+   "fieldtype": "Section Break",
+   "label": "Tax Settings"
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax ID"
+  },
+  {
+   "fieldname": "vat_number",
+   "fieldtype": "Data",
+   "label": "VAT Number"
+  },
+  {
+   "fieldname": "tax_rate",
+   "fieldtype": "Percent",
+   "label": "Default Tax Rate"
+  },
+  {
+   "fieldname": "bank_settings",
+   "fieldtype": "Section Break",
+   "label": "Bank Settings"
+  },
+  {
+   "fieldname": "bank_name",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Data",
+   "label": "Bank Account"
+  },
+  {
+   "fieldname": "bank_code",
+   "fieldtype": "Data",
+   "label": "Bank Code"
+  },
+  {
+   "fieldname": "swift_code",
+   "fieldtype": "Data",
+   "label": "SWIFT Code"
+  },
+  {
+   "fieldname": "iban",
+   "fieldtype": "Data",
+   "label": "IBAN"
+  },
+  {
+   "fieldname": "company_settings",
+   "fieldtype": "Section Break",
+   "label": "Company Settings"
+  },
+  {
+   "fieldname": "timezone",
+   "fieldtype": "Data",
+   "label": "Timezone"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "label": "Language",
+   "options": "English\nArabic\nFrench\nGerman\nSpanish\nChinese\nJapanese"
+  },
+  {
+   "fieldname": "date_format",
+   "fieldtype": "Select",
+   "label": "Date Format",
+   "options": "DD-MM-YYYY\nMM-DD-YYYY\nYYYY-MM-DD\nDD/MM/YYYY\nMM/DD/YYYY"
+  },
+  {
+   "fieldname": "time_format",
+   "fieldtype": "Select",
+   "label": "Time Format",
+   "options": "12 Hour\n24 Hour"
+  },
+  {
+   "fieldname": "number_format",
+   "fieldtype": "Select",
+   "label": "Number Format",
+   "options": "1,234.56\n1.234,56\n1 234,56"
+  },
+  {
+   "fieldname": "currency_format",
+   "fieldtype": "Select",
+   "label": "Currency Format",
+   "options": "$1,234.56\n1,234.56 USD\nUSD 1,234.56"
+  },
+  {
+   "fieldname": "external_system_id",
+   "fieldtype": "Data",
+   "label": "External System ID"
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active",
+   "default": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User"
+  },
+  {
+   "fieldname": "created_on",
+   "fieldtype": "Datetime",
+   "label": "Created On"
+  },
+  {
+   "fieldname": "modified_by",
+   "fieldtype": "Link",
+   "label": "Modified By",
+   "options": "User"
+  },
+  {
+   "fieldname": "modified_on",
+   "fieldtype": "Datetime",
+   "label": "Modified On"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-15 10:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Finance",
+ "name": "Company",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Finance Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accountant",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 0,
+   "print": 1,
+   "read": 1,
+   "report": 0,
+   "role": "Finance User",
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
